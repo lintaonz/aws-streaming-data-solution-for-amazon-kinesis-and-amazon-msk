@@ -80,6 +80,18 @@ chmod +x ./build-s3-dist.sh
 ./build-s3-dist.sh $ARTIFACT_BUCKET $SOLUTION_NAME $VERSION
 ```
 
+```shell
+export ARTIFACT_BUCKET=streaming-data-solution
+export SOLUTION_NAME=streaming-data
+export VERSION=v1.0.0
+
+export ARTIFACT_BUCKET=temp-test-us-west-2-spidertracks-build-artifacts
+export SOLUTION_NAME=data-hackathon-ml-flight-events
+export VERSION=v0.0.1
+
+brew install wget
+```
+
 > **Why doesn't the solution use CDK deploy?** This solution includes a few Lambda functions, and by default CDK deploy will not install any dependencies (it'll only zip the contents of the path specified in _fromAsset_). In future releases, we'll look into leveraging bundling assets using [Docker](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html#bundling-asset-code).
 
 > In addition to that, there are also some extra components (such as the demo applications for the KPL and Kinesis Data Analytics) that are implemented in Java, and the _build-s3_ script takes care of packaging them.

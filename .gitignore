@@ -285,3 +285,5 @@ v-env/
 
 # Include CDK lib folder
 !source/lib
+
+amazon-kinesis-replay-release-0.1.0

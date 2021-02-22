@@ -26,7 +26,7 @@
 set -e
 
 # Important: CDK global version number
-cdk_version=1.80.0
+cdk_version=1.89.0
 
 # Check to see if input has been provided:
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
@@ -101,6 +101,7 @@ for folder in */ ; do
 
     echo "Compiling application $application_name"
     mvn clean package --quiet -Dflink.version=$flink_version
+    echo "zip -jq9 $build_dist_dir/$application_name.zip target/aws-$application_name.jar"
     zip -jq9 $build_dist_dir/$application_name.zip target/aws-$application_name.jar
 
     cd ..
