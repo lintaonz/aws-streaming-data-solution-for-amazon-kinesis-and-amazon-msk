@@ -13,41 +13,78 @@
 
 package com.demo.events;
 
+/**
+ * 
+ * { "track_id": 36, "spider": "JE8LDRJSJT", "power_cycle": 36, "avg_pitch":
+ * -0.034775496, "avg_roll": 0.008343337, "avg_yaw": 0.32535574, "avg_v_speed":
+ * 0.0070177596, "avg_altitude": 765.29144, "avg_lati": 30.505756, "avg_long":
+ * -95.14779, "avg_vn": 0.1617198057, "avg_ve": -0.2067287654, "avg_vd":
+ * -0.0070177596, "avg_gspped": 40.792923471, "avg_h": 0.3073974703 }
+ */
 public class RideRequest extends Event {
     // Trip ID is included to support deprecated event schema.
     @SuppressWarnings("squid:ClassVariableVisibilityCheck")
-    public Long tripId;
+    public Long trackId;
 
-    public final Long rideRequestId;
-    public final Long vehicleId;
-    public final Double expectedFare;
+    public final String spider;
+    public final Long powerCycle;
+    public final Double avgPitch;
+    public final Double avgRoll;
+    public final Double avgYaw;
+    public final Double avgVSpeed;
+    public final Double avgAltitude;
+    public final Double avgLati;
+    public final Double avgLong;
+    public final Double avgVn;
+    public final Double avgVe;
+    public final Double avgVd;
+    public final Double avgGspped;
+    public final Double avgH;
+    public final String profile;
 
-    public RideRequest(Long rideRequestId) {
-        this.rideRequestId = rideRequestId;
-        this.vehicleId = null;
-        this.expectedFare = null;
+    public RideRequest(Long powerCycle, String spider, Double avgPitch, Double avgRoll, Double avgYaw, Double avgVSpeed,
+            Double avgAltitude, Double avgLati, Double avgLong, Double avgVn, Double avgVe, Double avgVd,
+            Double avgGspped, Double avgH) {
+        this.powerCycle = powerCycle;
+        this.spider = spider;
+        this.avgPitch = avgPitch;
+        this.avgYaw = avgYaw;
+        this.avgRoll = avgRoll;
+        this.avgVSpeed = avgVSpeed;
+        this.avgAltitude = avgAltitude;
+        this.avgLati = avgLati;
+        this.avgLong = avgLong;
+        this.avgVn = avgVn;
+        this.avgVe = avgVe;
+        this.avgVd = avgVd;
+        this.avgGspped = avgGspped;
+        this.avgH = avgH;
+        this.profile = null;
     }
-    public RideRequest(Long rideRequestId, Long vehicleId) {
-        this.rideRequestId = rideRequestId;
-        this.vehicleId = vehicleId;
-        this.expectedFare = null;
-    }
 
-    public RideRequest(Long rideRequestId, Long vehicleId, Double expectedFare) {
-        this.rideRequestId = rideRequestId;
-        this.vehicleId = vehicleId;
-        this.expectedFare = expectedFare;
-    }
+    public RideRequest(Long powerCycle, String spider, Double avgPitch, Double avgRoll, Double avgYaw, Double avgVSpeed,
+            Double avgAltitude, Double avgLati, Double avgLong, Double avgVn, Double avgVe, Double avgVd,
+            Double avgGspped, Double avgH, String profile) {
+        this.powerCycle = powerCycle;
+        this.spider = spider;
+        this.avgPitch = avgPitch;
+        this.avgYaw = avgYaw;
+        this.avgRoll = avgRoll;
+        this.avgVSpeed = avgVSpeed;
+        this.avgAltitude = avgAltitude;
+        this.avgLati = avgLati;
+        this.avgLong = avgLong;
+        this.avgVn = avgVn;
+        this.avgVe = avgVe;
+        this.avgVd = avgVd;
+        this.avgGspped = avgGspped;
+        this.avgH = avgH;
+        this.profile = profile;
+    }    
 
-    public RideRequest withRideRequestId(long rideRequestId) {
-        return new RideRequest(rideRequestId, this.vehicleId, this.expectedFare);
-    }
-
-    public RideRequest withVehicleId(long vehicleId) {
-        return new RideRequest(this.rideRequestId, vehicleId, this.expectedFare);
-    }
-
-    public RideRequest withExpectedFare(double expectedFare) {
-        return new RideRequest(this.rideRequestId, this.vehicleId, expectedFare);
+    public RideRequest withProfile(String profile) {
+        return new RideRequest(this.powerCycle, this.spider, this.avgPitch, this.avgRoll, this.avgYaw, this.avgVSpeed,
+                this.avgAltitude, this.avgLati, this.avgLong, this.avgVn, this.avgVe, this.avgVd, this.avgGspped,
+                this.avgH, profile);
     }
 }

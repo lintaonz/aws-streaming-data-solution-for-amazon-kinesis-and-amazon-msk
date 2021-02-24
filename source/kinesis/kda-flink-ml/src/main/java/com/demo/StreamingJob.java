@@ -91,11 +91,11 @@ public class StreamingJob {
 
         DataStream<HttpRequest<RideRequest>> predictFareRequests = rideRequests
             // Set request id; will be removed with the new schema
-            .map(request -> request.withRideRequestId(request.tripId))
+            // .map(request -> request.withPowerCycle(request.tripId))
             // Deterministically filter events based on id to reduce throughput for dev environment
-            .filter(request -> request.rideRequestId % 20 == 0)
+            // .filter(request -> request.rideRequestId % 20 == 0)
             // Construct GET request to query expected trip fare
-            .map(request -> new HttpRequest<>(request, SdkHttpMethod.GET).withRawQueryParameter("ride_request_id", request.rideRequestId.toString()))
+            .map(request -> new HttpRequest<>(request, SdkHttpMethod.POST).withBody(mapper.writeValueAsString({request})))
             // Add type hint as the generic type parameter of HttpRequest<RideRequest> cannot be inferred automatically
             .returns(new TypeHint<HttpRequest<RideRequest>>() {});
 
@@ -113,8 +113,8 @@ public class StreamingJob {
             .filter(response -> response.statusCode == 200)
             // Enrich RideRequest with response from predictFareEndpoint
             .map(response -> {
-                double expectedFare = mapper.readValue(response.responseBody, ObjectNode.class).get("expected_fare").asDouble();
-                return response.triggeringEvent.withExpectedFare(expectedFare);
+                long profile = mapper.readValue(response.responseBody, ObjectNode.class).get("profile").asLong();
+                return response.triggeringEvent.withProfile(profile);
             });
 
         // Once the responses are received, you can do many other actions, such as:

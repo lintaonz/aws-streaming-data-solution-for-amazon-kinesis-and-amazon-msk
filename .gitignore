@@ -287,3 +287,7 @@ v-env/
 !source/lib
 
 amazon-kinesis-replay-release-0.1.0
+
+.classpath
+*.prefs
+.factorypath
